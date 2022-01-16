@@ -91,6 +91,8 @@
     chromium
     openssh
     ranger
+    discord
+    nodePackages.npm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
