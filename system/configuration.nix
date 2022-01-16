@@ -7,8 +7,7 @@
 {
   imports =
     [ 
-      ./hardware-configuration.nix
-      <home-manager/nixos>
+	./hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -61,6 +60,9 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # blue
+  hardware.bluetooth.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -68,25 +70,26 @@
   users.users.tmn = {
     isNormalUser = true;
     home = "/home/tmn";
-    initialPassword = "ranger";
     description = "Timon van der Berg";
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
-  # home manager
-  home-manager.users.tmn = { pkgs, ...}: {
-    home.packages = [pkgs.kate];
-    programs.bash.enable = true;
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim
     wget
     firefox
     git
+    tdesktop
+    kate
+    vscode
+    nodejs
+    git-cola
+    pavucontrol
   ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
