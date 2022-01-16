@@ -88,6 +88,8 @@
     nodejs
     git-cola
     pavucontrol
+    chromium
+    openssh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -101,7 +103,10 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+
+  # start ssh key agent
+  programs.ssh.startAgent = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
