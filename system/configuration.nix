@@ -13,10 +13,8 @@
   # Probe windows
   boot.loader.grub.useOSProber = true;
 
-  # hostname
   networking.hostName = "nixrp200";
 
-  # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -28,6 +26,7 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = ["all"];
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
@@ -36,7 +35,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   
@@ -44,22 +42,19 @@
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
 
-  # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
-  # blue
+  nixpkgs.config.pulseaudio = true;
   hardware.bluetooth.enable = true;
-
-  # Define a user account.
+  
   users.users.tmn = {
     isNormalUser = true;
     home = "/home/tmn";
     description = "Timon van der Berg";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" "input" "tty"];
+    initialHashedPassword = "$6$TwDO8O6vF6gpV/OC$wOAFoqvpXV9WnbTvbqLRmQlGcb8oNMJeIMoyV1RtdLJztCZGZD3M0tNb6piyKSnoAz5UfVPwOAsjIB3SG8gE9/";
   };
 
-  # List packages installed 
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim
@@ -69,20 +64,28 @@
     tdesktop
     kate
     vscode
-    nodejs
     git-cola
     pavucontrol
     chromium
     openssh
     ranger
     discord
-    nodePackages.npm
+    aws
+    texlive.combined.scheme-full
+    spotify
+    abiword
+    jre8
+    nodejs-17_x
+    unzip
+    qpaeq
+    fzf
+    silver-searcher
+    nixfmt
+    python
   ];
 
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # start ssh key agent
   programs.ssh.startAgent = true;
 
   # Initially installed version, don't change.
