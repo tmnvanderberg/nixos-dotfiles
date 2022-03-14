@@ -3,7 +3,8 @@
 {
   imports =
     [ 
-	    ./hardware-configuration.nix
+      ./hardware-configuration.nix 
+      ./multi-glibc-locale-paths.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -37,6 +38,7 @@
 
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+  networking.networkmanager.enable = true;
   
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -46,6 +48,15 @@
   hardware.pulseaudio.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.bluetooth.enable = true;
+
+  services.openvpn.servers = {
+	  sue = { 
+        config = ''config /home/tmn/vpnconf/timon.vanderberg.conf'';
+        authUserPass.username = "timon.vanderberg";
+        authUserPass.password = "not_my_actual_password:)";
+        updateResolvConf = true;
+      };
+  };
   
   users.users.tmn = {
     isNormalUser = true;
@@ -82,6 +93,8 @@
     silver-searcher
     nixfmt
     python
+    signal-desktop
+    ctags
   ];
 
   services.openssh.enable = true;
