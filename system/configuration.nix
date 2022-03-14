@@ -3,8 +3,7 @@
 {
   imports =
     [ 
-      ./hardware-configuration.nix 
-      ./multi-glibc-locale-paths.nix
+      ./hardware-configuration.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -48,15 +47,6 @@
   hardware.pulseaudio.enable = true;
   nixpkgs.config.pulseaudio = true;
   hardware.bluetooth.enable = true;
-
-  services.openvpn.servers = {
-	  sue = { 
-        config = ''config /home/tmn/vpnconf/timon.vanderberg.conf'';
-        authUserPass.username = "timon.vanderberg";
-        authUserPass.password = "not_my_actual_password:)";
-        updateResolvConf = true;
-      };
-  };
   
   users.users.tmn = {
     isNormalUser = true;
@@ -104,4 +94,3 @@
   # Initially installed version, don't change.
   system.stateVersion = "21.11"; 
 }
-
