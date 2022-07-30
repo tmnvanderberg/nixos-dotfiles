@@ -19,14 +19,11 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Probe windows
-  boot.loader.grub.useOSProber = true;
-
   # hostname
   networking.hostName = "nixrp200";
 
   # localization
-  time.timeZone = "Europe/Amsterdam";
+  /* time.timeZone = "Europe/Amsterdam"; */
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -36,8 +33,17 @@ in
   networking.interfaces.wlp7s0.useDHCP = true;
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = ["all"];
+  i18n.supportedLocales = [
+    "all" 
+    "en_US.UTF-8"
+    "en_AT.UTF-8"
+  ];
+  i18n.defaultLocale = "en_US.utf-8";
+  i18n.extraLocaleSettings = {
+    LC_ALL = "en_US.UTF-8"; 
+    LANG = "en_US";
+  };
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
@@ -81,9 +87,14 @@ in
   # enable unfree packages like propriatary drivers
   nixpkgs.config.allowUnfree = true;
 
+  # neovim nightly overlay
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
+  ];
+
   environment.systemPackages = with pkgs; [
-    # Use _configurable because it comes with python support
-    vim_configurable
     wget
     ark
     tmux
@@ -91,6 +102,7 @@ in
     git
     tdesktop
     kate
+    fzf
     vscode
     git-cola
     pavucontrol
@@ -119,6 +131,16 @@ in
     boot
     lua
     bat
+    partition-manager
+    mumble
+    neovim
+    glibc
+    glibcLocales
+    gcc
+    libcxx
+    llvm
+    xclip
+    ripgrep
   ];
 
   services.openssh.enable = true;
