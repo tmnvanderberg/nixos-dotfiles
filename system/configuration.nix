@@ -5,6 +5,7 @@ let
     pyx
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
+  unstable = import <unstable> {};
 in
 {
   imports =
