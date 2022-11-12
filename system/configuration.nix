@@ -34,16 +34,8 @@ in
   networking.interfaces.wlp7s0.useDHCP = true;
 
   # Select internationalisation properties.
-  i18n.supportedLocales = [
-    "all" 
-    "en_US.UTF-8"
-    "en_AT.UTF-8"
-  ];
-  i18n.defaultLocale = "en_US.utf-8";
-  i18n.extraLocaleSettings = {
-    LC_ALL = "en_US.UTF-8"; 
-    LANG = "en_US";
-  };
+  i18n.supportedLocales = [ "all" "en_US.UTF-8" ];
+  i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
     font = "Lat2-Terminus16";
