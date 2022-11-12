@@ -96,22 +96,16 @@ in
     tmux
     firefox
     git
+    git-annex
     tdesktop
-    kate
-    fzf
-    vscode
-    git-cola
     pavucontrol
     chromium
     openssh
     ranger
-    discord
-    aws
     texlive.combined.scheme-full
     spotify
-    abiword
     jre8
-    nodejs-17_x
+    nodejs-18_x
     unzip
     qpaeq
     fzf
@@ -128,7 +122,6 @@ in
     lua
     bat
     partition-manager
-    mumble
     unstable.neovim
     glibc
     glibcLocales
@@ -136,8 +129,18 @@ in
     libcxx
     llvm
     xclip
+    xsel
     ripgrep
+    nerdfonts
     steam
+    solaar
+    libsForQt5.kteatime
+    openvpn
+    unstable.openra
+    unstable.mono
+    unstable.msbuild
+    gnumake
+    tmux
   ];
 
   services.openssh = {
