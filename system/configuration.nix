@@ -80,12 +80,6 @@ in
   # enable unfree packages like propriatary drivers
   nixpkgs.config.allowUnfree = true;
 
-  # neovim nightly overlay
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    }))
-  ];
   # nvidia gpu drivers
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.enable = true;
@@ -129,7 +123,7 @@ in
     bat
     partition-manager
     mumble
-    neovim
+    unstable.neovim
     glibc
     glibcLocales
     gcc
