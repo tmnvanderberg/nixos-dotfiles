@@ -80,6 +80,12 @@ in
   # enable unfree packages like propriatary drivers
   nixpkgs.config.allowUnfree = true;
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
   # nvidia gpu drivers
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.enable = true;
@@ -131,6 +137,7 @@ in
     llvm
     xclip
     ripgrep
+    steam
   ];
 
   services.openssh.enable = true;
