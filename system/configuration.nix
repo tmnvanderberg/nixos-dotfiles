@@ -145,6 +145,74 @@ in
     passwordAuthentication = true;
   };
 
+  programs.tmux = {
+    enable = true;
+    aggressiveResize = true;
+    extraConfig = ''
+# copy to system clipboard
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xsel -i -b --clipboard'
+
+# Explicit default
+set -g @paste_eselection 'clipboard'
+
+# vi mode
+setw -g mode-keys vi
+
+# Set new panes to open in current directory
+bind c new-window -c "#{pane_current_path}"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
+# lower escape times to prevent delayonfiguration
+set -sg escape-time 10
+
+# enable mouse 
+set -g mouse on
+
+# start session number from 1 rather than 0
+set -g base-index 0
+
+# start pane number from 1 similar to windows
+set -g pane-base-index 0
+
+# theme
+set -g @tmux-gruvbox 'dark' # or 'light'
+
+# save nvim sessions
+set -g @resurrect-strategy-nvim 'session'
+
+# save panes
+set -g @resurrect-capture-pane-contents 'on'
+
+# increase history limit 
+set -g history-limit 50000
+
+# config tmux-logging plugin
+set -g @logging-path "$HOME/Documents/logs/"
+set -g @screencapture-path "$HOME/Documents/logs/"
+set -g @save-complete-history-path "$HOME/Documents/logs/dump/"
+
+# source .tmux.conf file
+bind r source-file /etc/.conf \; display "Configuration Reloaded!"
+
+# tmux plugins using plugin manager (loaded below)
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-open'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-pain-control'
+set -g @plugin 'tmux-plugins/tmux-fpp'
+set -g @plugin 'brennanfee/tmux-paste'
+set -g @plugin 'tmux-plugins/tmux-logging'
+set -g @plugin 'lljbash/tmux-update-display'
+set -g @plugin 'egel/tmux-gruvbox'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+    '';
+  };
+
   programs.ssh.startAgent = true;
 
   # Initially installed version, don't change.
