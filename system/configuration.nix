@@ -141,7 +141,7 @@ in
     ripgrep
     nerdfonts
     steam
-    solaar
+    unstable.solaar
     libsForQt5.kteatime
     openvpn
     unstable.openra
