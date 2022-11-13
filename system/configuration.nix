@@ -53,6 +53,14 @@ in
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
 
+  nixpkgs.config = {
+    packageOverrides = super: {
+      mplayer = super.mplayer.override {
+        v4lSupport = true;
+      };
+    };
+  };
+
   # sound & bt
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -141,6 +149,7 @@ in
     unstable.msbuild
     gnumake
     tmux
+    mplayer
   ];
 
   services.openssh = {
