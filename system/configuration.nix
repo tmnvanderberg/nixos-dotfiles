@@ -150,6 +150,7 @@ in
     gnumake
     tmux
     mplayer
+    clang
   ];
 
   services.openssh = {
