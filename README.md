@@ -1,2 +1,2 @@
-# dotfiles
+# nixos-dotfiles
 nixos configuration files
