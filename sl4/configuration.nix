@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       <nixos-hardware/microsoft/surface>
       ./hardware-configuration.nix
     ];
@@ -16,11 +17,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  boot.kernelParams = [ 
-	# "nomodeset" 
-	"acpi_backlight=vendor"
-	"amd_iommu=off" 
-	"iommu=off"
+  boot.kernelParams = [
+    # "nomodeset" 
+    "acpi_backlight=vendor"
+    "amd_iommu=off"
+    "iommu=off"
   ];
   microsoft-surface.kernelVersion = "5.19.17";
   networking.hostName = "nixos"; # Define your hostname.
