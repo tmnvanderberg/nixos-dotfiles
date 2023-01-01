@@ -101,6 +101,7 @@
       vlc
       mplayer
       calibre
+      lua
     ];
   };
 
