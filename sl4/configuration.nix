@@ -105,6 +105,7 @@
       mplayer
       calibre
       lua
+      ripgrep
       pavucontrol
     ];
   };
