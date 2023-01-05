@@ -27,6 +27,9 @@
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
