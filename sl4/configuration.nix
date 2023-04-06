@@ -26,20 +26,29 @@
     builders-use-substitutes = true
   '';
 
+  # android 
+  programs.adb.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # allow old insecury python dep - @todo check why this was
+  nixpkgs.config.permittedInsecurePackages = [
+	"python-2.7.18.6"
+  ];
+
+  # kernel params for backlight on surface laptop 4
   boot.kernelParams = [
     "acpi_backlight=vendor"
     "amd_iommu=off"
     "iommu=off"
   ];
 
-  networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
+  networking.hostName = "nix-sl4"; 
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
@@ -107,7 +116,6 @@
       yadm
       neovim
       exercism
-      openvpn
       nerdfonts
       fzf
       tmux
@@ -124,6 +132,8 @@
       lua
       ripgrep
       pavucontrol
+      tree-sitter
+      google-chrome
     ];
   };
 
@@ -153,10 +163,11 @@
     jdk
     llvm
     clang-tools
+    man-pages-posix
+    openvpn
   ];
 
-  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp/nix-daemon";
+  documentation.dev.enable = true;
 
   system.stateVersion = "22.05"; # do not touch
-
 }
