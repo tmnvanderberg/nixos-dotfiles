@@ -7,6 +7,24 @@
       <nixos-hardware/microsoft/surface/surface-laptop-amd>
       ./hardware-configuration.nix
     ];
+    
+  # Add remote build machine
+  nix.buildMachines = [{
+    hostName = "builder";
+    system = "x86_64-linux";
+    maxJobs = 22;
+    speedFactor = 10;
+    supportedFeatures = [ "big-parallel" ];
+    mandatoryFeatures = [ ];
+  }];
+
+  # build system on remote builders
+  nix.distributedBuilds = true;
+
+  # Download dependencies remotely
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -81,7 +99,7 @@
   users.users.tbe = {
     isNormalUser = true;
     description = "Timon van der Berg";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "audio" "video" "tty" "network" "adbusers" ];
     packages = with pkgs; [
       firefox
       kate
