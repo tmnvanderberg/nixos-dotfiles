@@ -4,7 +4,7 @@
   imports =
     [
       # Include the results of the hardware scan.
-      <nixos-hardware/microsoft/surface>
+      <nixos-hardware/microsoft/surface/surface-laptop-amd>
       ./hardware-configuration.nix
     ];
 
@@ -19,7 +19,6 @@
     "iommu=off"
   ];
 
-  microsoft-surface.kernelVersion = "5.19.17";
   networking.hostName = "nixos"; # Define your hostname.
 
   # Enable networking
