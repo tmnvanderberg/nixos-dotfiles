@@ -61,13 +61,28 @@ in
     };
   };
 
-  # sound & bt
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  nixpkgs.config.pulseaudio = true;
+  # bluetooth
   hardware.bluetooth.enable = true;
 
+  security.rtkit.enable = true;
+
+  # pipewire sound server
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # docker
   virtualisation.docker.enable = true;
+
+  # steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
   
   # set up user & groups
   users.users.tmn = {
@@ -84,21 +99,64 @@ in
     ];
     initialHashedPassword = "$6$TwDO8O6vF6gpV/OC$wOAFoqvpXV9WnbTvbqLRmQlGcb8oNMJeIMoyV1RtdLJztCZGZD3M0tNb6piyKSnoAz5UfVPwOAsjIB3SG8gE9/";
   };
+  
+  nix.settings.trusted-users = [ "root" "tmn"];
 
   # enable unfree packages like propriatary drivers
   nixpkgs.config.allowUnfree = true;
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
-
   # nvidia gpu drivers
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
+  hardware.nvidia = {
+    # Modesetting is required.
+    modesetting.enable = true;
 
-  environment.systemPackages = with pkgs; [
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    powerManagement.enable = false;
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+
+    # Use the NVidia open source kernel module (not to be confused with the
+    # independent third-party "nouveau" open source driver).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    # Do not disable this unless your GPU is unsupported or if you have a good reason to.
+    open = false;
+
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  
+  environment.systemPackages = with pkgs; 
+  let 
+    rstudio-pri = rstudioWrapper.override {
+      packages = with rPackages;
+        [
+          ggplot2
+          dplyr
+          xts
+          curl
+          png
+          jpeg
+          xml2
+        ];
+    };
+  in 
+  [
     wget
     ark
     tmux
@@ -140,7 +198,6 @@ in
     xsel
     ripgrep
     nerdfonts
-    steam
     unstable.solaar
     libsForQt5.kteatime
     openvpn
@@ -151,11 +208,26 @@ in
     tmux
     mplayer
     clang
+    clang-tools
+    comma
+    calibre
+    go
+    cargo
+    luajitPackages.luarocks
+    jdk 
+    php
+    opam
+    google-chrome
+	rstudio-pri
+    quarto
+    kate
   ];
 
   services.openssh = {
     enable = true;
-    passwordAuthentication = true;
+  };
+  services.openssh.settings = {
+    PasswordAuthentication = true;
   };
 
   programs.tmux = {
