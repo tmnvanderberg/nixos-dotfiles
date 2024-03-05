@@ -145,6 +145,10 @@ in
   };
   
   nix.settings.trusted-users = [ "root" "tmn"];
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
 
   # enable unfree packages like propriatary drivers
   nixpkgs.config.allowUnfree = true;
