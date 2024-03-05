@@ -138,6 +138,7 @@ in
       "video" 
       "input" 
       "tty"
+      "docker"
     ];
     initialHashedPassword = "$6$TwDO8O6vF6gpV/OC$wOAFoqvpXV9WnbTvbqLRmQlGcb8oNMJeIMoyV1RtdLJztCZGZD3M0tNb6piyKSnoAz5UfVPwOAsjIB3SG8gE9/";
   };
