@@ -31,6 +31,9 @@ in
     "python-2.7.18.7"
   ];
     	
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
+
   # hostname
   networking.hostName = "nixrp200";
 
