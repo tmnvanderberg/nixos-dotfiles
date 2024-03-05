@@ -72,7 +72,7 @@ in
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey   <REDACTED>  '';
+      # ${tailscale}/bin/tailscale up -authkey  '';
   };
 
   # Select internationalisation properties.
