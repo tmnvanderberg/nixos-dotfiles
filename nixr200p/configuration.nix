@@ -25,6 +25,12 @@ in
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
+
+  # permit required insure package
+  nixpkgs.config.permittedInsecurePackages = [
+    "python-2.7.18.7"
+  ];
+    	
   # hostname
   networking.hostName = "nixrp200";
 
