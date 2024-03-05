@@ -172,10 +172,23 @@ in
           png
           jpeg
           xml2
+          cairo
+          zlib
+          haven
+          tidyverse
+          lme4
+          extraDistr
+          brms
+          ggtext
+          patchwork
+          bayesplot
+          magrittr
+          tailscale
         ];
     };
   in 
   [
+    yadm
     wget
     ark
     tmux
@@ -217,7 +230,6 @@ in
     xsel
     ripgrep
     nerdfonts
-    unstable.solaar
     libsForQt5.kteatime
     openvpn
     unstable.openra
@@ -237,9 +249,13 @@ in
     php
     opam
     google-chrome
-	rstudio-pri
     quarto
     kate
+    cmake
+    openssl.dev
+    nodePackages.typescript-language-server
+    tailscale
+    wireguard-go
   ];
 
   services.openssh = {
