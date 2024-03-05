@@ -143,8 +143,33 @@ in
     ];
     initialHashedPassword = "$6$TwDO8O6vF6gpV/OC$wOAFoqvpXV9WnbTvbqLRmQlGcb8oNMJeIMoyV1RtdLJztCZGZD3M0tNb6piyKSnoAz5UfVPwOAsjIB3SG8gE9/";
   };
+
+  users.users.tbe = {
+    isNormalUser = false;
+    isSystemUser = true;
+    home = "/home/tbe";
+    description = "Timon van der Berg";
+    extraGroups = [ 
+      "wheel" 
+      "networkmanager" 
+      "audio" 
+      "video" 
+      "input" 
+      "tty"
+      "docker"
+      "dialout"
+    ];
+    initialHashedPassword = "$5$9LEMxdZWeodbPVJP$tyQSRJJZI4Qu0i1kvZ9BJIZqSKp8NMAawmLscgRs9.B";
+  };
+  users.users.tbe.group = "tbeg";
+  users.users.tbe.shell = "/run/current-system/sw/bin/bash";
+  users.groups.tbeg = { 
+	name = "tbeg"; 
+	members = ["tbe"]; 
+	gid = 1666;
+	};
   
-  nix.settings.trusted-users = [ "root" "tmn"];
+  nix.settings.trusted-users = [ "root" "tmn" "tbe"];
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
