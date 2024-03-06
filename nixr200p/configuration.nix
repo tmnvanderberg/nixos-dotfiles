@@ -143,31 +143,7 @@ in
     ];
   };
 
-  users.users.tbe = {
-    isNormalUser = true;
-    isSystemUser = false;
-    home = "/home/tbe";
-    description = "Timon van der Berg";
-    group = "tbeg";
-    extraGroups = [ 
-      "wheel" 
-      "networkmanager" 
-      "audio" 
-      "video" 
-      "input" 
-      "tty"
-      "docker"
-      "dialout"
-      "users"
-    ];
-  };
-  users.groups.tbeg = { 
-    name = "tbeg";
-    members = ["tbe"];
-    gid = 1666;
-	};
-  
-  nix.settings.trusted-users = [ "root" "tmn" "tbe"];
+  nix.settings.trusted-users = [ "root" "tmn"];
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
